@@ -15,13 +15,22 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path
-import tours.views as ToursViews
 
+from django.urls import path
+
+from tours.views import main_view
+from tours.views import departure_view
+from tours.views import tour_view
+from tours.views import custom_handler404
+# from tours.views import custom_handler500
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', ToursViews.MainView),
-    path('departure/<str:departure>/', ToursViews.DepartureView),
-    path('tour/<int:id>/', ToursViews.TourView),
+    path('', main_view),
+    path('departure/<str:departure>/', departure_view),
+    path('tour/<int:id>/', tour_view),
 ]
+
+# почему-то перестает открываться страница, когда добавляю handler500. "Не удается получить доступ к сайту"
+handler404 = custom_handler404
+# handler500 = custom_handler500
